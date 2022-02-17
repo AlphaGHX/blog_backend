@@ -5,5 +5,5 @@ import (
 )
 
 var (
-	BLOG_LIST map[string]models.List
+	BLOG_LIST []models.List
 )

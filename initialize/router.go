@@ -16,6 +16,7 @@ func Routers() *gin.Engine {
 	PublicGroup := Router.Group("")
 	{
 		systemRouter.InitListRouter(PublicGroup)
+		systemRouter.InitBlogRouter(PublicGroup)
 	}
 
 	return Router

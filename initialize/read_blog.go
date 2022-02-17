@@ -9,26 +9,26 @@ import (
 	"github.com/spf13/viper"
 )
 
-func ReadBlog() map[string]models.List {
-	var BlogList = make(map[string]models.List)
+func ReadBlog() []models.List {
+	var BlogList []models.List
 	v := viper.New()
-	global.BLOG_LIST = make(map[string]models.List)
-	files, err := ioutil.ReadDir("./blog")
+	files, err := ioutil.ReadDir(global.BLOG_HOME)
 	if err != nil {
 		fmt.Println(err)
 	}
 	for _, f := range files {
-		v.SetConfigFile("./blog/" + f.Name() + "/config.toml")
+		v.SetConfigFile(global.BLOG_HOME + f.Name() + global.BLOG_CONFIG)
 		v.SetConfigType("toml")
 		if err := v.ReadInConfig(); err != nil {
 			panic(fmt.Errorf("fatal error in reading config file: %v", err))
 		}
 		BlogItem := models.List{
-			Id:    v.GetString("id"),
-			Title: v.GetString("title"),
-			Text:  v.GetString("text"),
+			Id:     v.GetString("id"),
+			Title:  v.GetString("title"),
+			Text:   v.GetString("text"),
+			TopImg: "/system/list/img/" + v.GetString("id"),
 		}
-		BlogList[v.GetString("id")] = BlogItem
+		BlogList = append(BlogList, BlogItem)
 	}
 	return BlogList
 }

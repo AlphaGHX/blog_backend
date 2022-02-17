@@ -12,5 +12,8 @@ type ListRouter struct {
 func (b *ListRouter) InitListRouter(Router *gin.RouterGroup) {
 	listRouter := Router.Group("system")
 	var listApi = api.ApiGroupApp.SystemApiGroup.ListApi
-	listRouter.GET("list", listApi.GetList)
+	{
+		listRouter.GET("list", listApi.GetList)
+		listRouter.GET("list/img/:img", listApi.GetListImg)
+	}
 }

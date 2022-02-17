@@ -15,3 +15,8 @@ func (s *ListApi) GetList(c *gin.Context) {
 	list.List = global.BLOG_LIST
 	c.JSON(200, list)
 }
+
+func (s *ListApi) GetListImg(c *gin.Context) {
+	param := c.Param("img")
+	c.File(global.BLOG_HOME + param + "/topImg.jpg")
+}
