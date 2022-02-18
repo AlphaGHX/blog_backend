@@ -10,9 +10,10 @@ type BlogRouter struct {
 }
 
 func (b *BlogRouter) InitBlogRouter(Router *gin.RouterGroup) {
-	listRouter := Router.Group("system")
-	var listApi = api.ApiGroupApp.SystemApiGroup.ListApi
+	blogRouter := Router.Group("system")
+	var blogApi = api.ApiGroupApp.SystemApiGroup.ListApi
 	{
-		listRouter.GET("blog/:blog", listApi.GetBlog)
+		blogRouter.GET("blog/:blog", blogApi.GetBlog)
+		blogRouter.GET("blog-info/:blog", blogApi.GetBlogInfo)
 	}
 }
