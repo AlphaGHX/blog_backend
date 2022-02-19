@@ -1,6 +1,7 @@
 package system
 
 import (
+	"blog/global"
 	"blog/service"
 
 	"github.com/gin-gonic/gin"
@@ -20,6 +21,7 @@ func (s *ListApi) GetList(c *gin.Context) {
 }
 
 func (s *ListApi) GetListImg(c *gin.Context) {
+	local := global.CONFIG.Local
 	param := c.Param("img")
-	c.File("./blog/" + param + "/topImg.jpg")
+	c.File(local.Bloghome + param + local.TopimgPath)
 }

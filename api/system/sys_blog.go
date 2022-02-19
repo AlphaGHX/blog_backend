@@ -1,6 +1,7 @@
 package system
 
 import (
+	"blog/global"
 	"blog/service"
 
 	"github.com/gin-gonic/gin"
@@ -10,8 +11,9 @@ type BlogApi struct {
 }
 
 func (s *ListApi) GetBlog(c *gin.Context) {
+	local := global.CONFIG.Local
 	param := c.Param("blog")
-	c.File("./blog/" + param + "/markdown.md")
+	c.File(local.Bloghome + param + local.MarkdownPath)
 }
 
 func (s *ListApi) GetBlogInfo(c *gin.Context) {
