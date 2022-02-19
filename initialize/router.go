@@ -19,6 +19,7 @@ func Routers() *gin.Engine {
 	{
 		systemRouter.InitListRouter(PublicGroup)
 		systemRouter.InitBlogRouter(PublicGroup)
+		systemRouter.InitTagRouter(PublicGroup)
 	}
 
 	fmt.Println("DONE\t路由启动成功")

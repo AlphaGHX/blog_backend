@@ -11,7 +11,7 @@ type ListApi struct {
 }
 
 func (s *ListApi) GetList(c *gin.Context) {
-	list, err := service.ServiceGroupApp.SystemServiceGroup.GetBlogList()
+	list, err := service.ServiceGroupApp.SystemServiceGroup.ListService.GetBlogList()
 	if err != nil {
 		c.JSON(200, gin.H{
 			"info": err,

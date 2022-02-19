@@ -10,15 +10,15 @@ import (
 type BlogApi struct {
 }
 
-func (s *ListApi) GetBlog(c *gin.Context) {
+func (s *BlogApi) GetBlog(c *gin.Context) {
 	local := global.CONFIG.Local
 	param := c.Param("blog")
 	c.File(local.Bloghome + param + local.MarkdownPath)
 }
 
-func (s *ListApi) GetBlogInfo(c *gin.Context) {
+func (s *BlogApi) GetBlogInfo(c *gin.Context) {
 	param := c.Param("blog")
-	data, err := service.ServiceGroupApp.SystemServiceGroup.GetBlogInfo(param)
+	data, err := service.ServiceGroupApp.SystemServiceGroup.BlogService.GetBlogInfo(param)
 	if err != nil {
 		c.JSON(200, gin.H{
 			"info": err,
