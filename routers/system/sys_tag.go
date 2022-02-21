@@ -13,5 +13,6 @@ func (b *TagRouter) InitTagRouter(Router *gin.RouterGroup) {
 	var tagApi = api.ApiGroupApp.SystemApiGroup.TagApi
 	{
 		tagRouter.GET("tag/:tag", tagApi.GetBlogUseTag)
+		tagRouter.GET("tag", tagApi.GetTagList)
 	}
 }

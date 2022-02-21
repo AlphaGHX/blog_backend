@@ -14,7 +14,7 @@ func InsertTestData() {
 			Tag:   models.Tag{"Tag测试"},
 		},
 		{
-			Name:  "fist",
+			Name:  "first",
 			Title: "第一条博客",
 			Text:  "正在思考写啥",
 			Tag:   models.Tag{"Golang", "vue"},
