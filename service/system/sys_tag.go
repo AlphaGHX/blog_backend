@@ -9,6 +9,6 @@ type TagService struct{}
 
 func (s TagService) GetBlogUseTag(tag string) (list response.ListResponse, err error) {
 	var data response.ListResponse
-	result := global.GROM.Where("JSON_SEARCH(tag, 'all', ?)", tag).Find(&data.List)
+	result := global.GROM.Where("JSON_SEARCH(tag, 'all', ?)", tag).Find(&data)
 	return data, result.Error
 }

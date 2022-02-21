@@ -3,16 +3,17 @@ package models
 import (
 	"database/sql/driver"
 	"encoding/json"
-
-	"gorm.io/gorm"
+	"time"
 )
 
 type Blog struct {
-	gorm.Model
-	Name  string `gorm:"unique"`
-	Title string `gorm:"not null"`
-	Text  string `gorm:"not null"`
-	Tag   Tag    `gorm:"type:json"`
+	ID        uint      `gorm:"primarykey" json:"id"`
+	CreatedAt time.Time `json:"createdat"`
+	UpdatedAt time.Time `json:"updatedat"`
+	Name      string    `gorm:"unique" json:"name"`
+	Title     string    `gorm:"not null" json:"title"`
+	Text      string    `gorm:"not null" json:"text"`
+	Tag       Tag       `gorm:"type:json" json:"tag"`
 }
 
 type Tag []string

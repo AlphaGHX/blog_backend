@@ -2,6 +2,7 @@ package system
 
 import (
 	"blog/global"
+	"blog/models/response"
 	"blog/service"
 
 	"github.com/gin-gonic/gin"
@@ -13,11 +14,10 @@ type ListApi struct {
 func (s *ListApi) GetList(c *gin.Context) {
 	list, err := service.ServiceGroupApp.SystemServiceGroup.ListService.GetBlogList()
 	if err != nil {
-		c.JSON(200, gin.H{
-			"info": err,
-		})
+		response.FailWithDetailed(err, "GetListApi Error", c)
+		return
 	}
-	c.JSON(200, list)
+	response.OkWithData(list, c)
 }
 
 func (s *ListApi) GetListImg(c *gin.Context) {

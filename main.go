@@ -3,7 +3,7 @@ package main
 import (
 	"blog/global"
 	"blog/initialize"
-	// "blog/temp"
+	"blog/temp"
 )
 
 func main() {
@@ -11,10 +11,10 @@ func main() {
 
 	global.GROM = initialize.Gorm()
 
+	temp.InsertTestData()
+
 	Router := initialize.Routers()
 	Router.Run(":12900")
-
-	// temp.InsertTestData()
 
 	sqlDB, _ := global.GROM.DB()
 	defer sqlDB.Close()
