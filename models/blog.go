@@ -7,13 +7,12 @@ import (
 )
 
 type Blog struct {
-	ID        uint      `gorm:"primarykey" json:"id"`
-	CreatedAt time.Time `json:"createdat"`
-	UpdatedAt time.Time `json:"updatedat"`
-	Name      string    `gorm:"unique" json:"name"`
+	Name      string    `gorm:"primarykey;not null;unique" json:"name"`
 	Title     string    `gorm:"not null" json:"title"`
 	Text      string    `gorm:"not null" json:"text"`
 	Tag       Tag       `gorm:"type:json" json:"tag"`
+	CreatedAt time.Time `json:"createdat"`
+	UpdatedAt time.Time `json:"updatedat"`
 }
 
 type Tag []string

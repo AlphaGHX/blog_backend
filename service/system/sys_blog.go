@@ -13,8 +13,3 @@ func (s *BlogService) GetBlogInfo(param string) (info models.Blog, err error) {
 	result := global.GROM.Where("name = ?", param).First(&data)
 	return data, result.Error
 }
-
-func (s *BlogService) PostBlogInfo(data models.Blog) (err error) {
-	result := global.GROM.Create(&data)
-	return result.Error
-}

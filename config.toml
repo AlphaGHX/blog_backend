@@ -11,3 +11,11 @@ max-open-conns = 100
 bloghome = "./blog/"
 markdown-path = "/markdown.md"
 topimg-path = "/topImg.jpg"
+
+[jwt]
+secret = "balabalabala"
+expire-time = 604800
+
+[default-user]
+username = "alpha"
+password = "balabalabala"

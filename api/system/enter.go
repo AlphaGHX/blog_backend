@@ -4,4 +4,5 @@ type ApiGroup struct {
 	ListApi
 	TagApi
 	BlogApi
+	UserApi
 }

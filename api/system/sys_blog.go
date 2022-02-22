@@ -60,10 +60,23 @@ func (s *BlogApi) PostBlogInfo(c *gin.Context) {
 		Text:  data.Text,
 		Tag:   data.Tag,
 	}
-	err = service.ServiceGroupApp.SystemServiceGroup.BlogService.PostBlogInfo(insertData)
+	err = service.ServiceGroupApp.SystemServiceGroup.BlogServiceEx.PostBlogInfo(insertData)
 	if err != nil {
 		response.FailWithDetailed(err, "PostBlogInfoApi service Error", c)
 		return
+	}
+	response.Ok(c)
+}
+
+func (s *BlogApi) DelBlogInfo(c *gin.Context) {
+	param := c.Param("blog")
+	err := service.ServiceGroupApp.SystemServiceGroup.BlogServiceEx.DelBlogInfo(param)
+	if err != nil {
+		response.FailWithDetailed(err, "DelBlogInfoApi SQL Error", c)
+	}
+	err = os.RemoveAll(global.CONFIG.Local.Bloghome + param)
+	if err != nil {
+		response.FailWithDetailed(err, "DelBlogInfoApi RemoveDir Error", c)
 	}
 	response.Ok(c)
 }

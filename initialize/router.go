@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"blog/middleware"
 	"blog/routers"
 	"fmt"
 
@@ -20,6 +21,13 @@ func Routers() *gin.Engine {
 		systemRouter.InitListRouter(PublicGroup)
 		systemRouter.InitBlogRouter(PublicGroup)
 		systemRouter.InitTagRouter(PublicGroup)
+		systemRouter.InitUserRouter(PublicGroup)
+	}
+
+	PrivateGroup := Router.Group("")
+	PrivateGroup.Use(middleware.JwtAuth())
+	{
+		systemRouter.InitBlogRouterEx(PrivateGroup)
 	}
 
 	fmt.Println("DONE\t路由启动成功")

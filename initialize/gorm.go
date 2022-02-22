@@ -36,7 +36,7 @@ func Gorm() *gorm.DB {
 }
 
 func setUpMysql(db *gorm.DB) {
-	if err := db.AutoMigrate(models.Blog{}); err != nil {
+	if err := db.AutoMigrate(models.Blog{}, models.User{}); err != nil {
 		panic(fmt.Errorf("ERROR\t数据库初始化表时错误: %v", err))
 	}
 }
