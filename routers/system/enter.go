@@ -5,5 +5,6 @@ type RouterGroup struct {
 	BlogRouter
 	BlogRouterEx
 	UserRouter
+	UserRouterEx
 	TagRouter
 }

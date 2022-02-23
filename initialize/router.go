@@ -28,6 +28,7 @@ func Routers() *gin.Engine {
 	PrivateGroup.Use(middleware.JwtAuth())
 	{
 		systemRouter.InitBlogRouterEx(PrivateGroup)
+		systemRouter.InitUserRouterEx(PrivateGroup)
 	}
 
 	fmt.Println("DONE\t路由启动成功")

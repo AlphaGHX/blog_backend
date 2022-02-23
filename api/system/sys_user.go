@@ -31,3 +31,7 @@ func (s *UserApi) VerifyUser(c *gin.Context) {
 	}
 	response.OkWithData(gin.H{"token": token}, c)
 }
+
+func (s *UserApi) VerifyToken(c *gin.Context) {
+	response.OkWithMessage("验证通过", c)
+}
