@@ -9,8 +9,8 @@ max-open-conns = 100
 
 [local]
 bloghome = "./blog/"
-markdown-path = "/markdown.md"
-topimg-path = "/topImg.jpg"
+markdown-path = "/markdown"
+topimg-path = "/topImg"
 
 [jwt]
 secret = "balabalabala"

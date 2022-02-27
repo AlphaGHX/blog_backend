@@ -20,9 +20,10 @@ func InsertTestData() {
 			Tag:   models.Tag{"Golang", "vue"},
 		},
 		{
-			Name:  "test",
+			Name:  "markdown-test",
 			Title: "Markdown测试",
 			Text:  "Markdown测试,Markdown测试",
+			Tag:   models.Tag{"test", "markdown"},
 		},
 	}
 
