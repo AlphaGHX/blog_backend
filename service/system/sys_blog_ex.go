@@ -25,6 +25,17 @@ func (s *BlogServiceEx) PostBlogInfo(data models.Blog) (err error) {
 	}
 }
 
+func (s *BlogServiceEx) CreateBlogInfo(data models.Blog) (ok bool, err error) {
+	var oldData models.Blog
+	test := global.GROM.Where("name = ?", data.Name).First(&oldData)
+	if errors.Is(test.Error, gorm.ErrRecordNotFound) {
+		result := global.GROM.Create(&data)
+		return true, result.Error
+	} else {
+		return false, nil
+	}
+}
+
 func (s *BlogServiceEx) DelBlogInfo(name string) (err error) {
 	getBlogInfo := new(BlogService)
 	data, err := getBlogInfo.GetBlogInfo(name)

@@ -68,6 +68,32 @@ func (s *BlogApi) PostBlogInfo(c *gin.Context) {
 	response.Ok(c)
 }
 
+func (s *BlogApi) CreateBlogInfo(c *gin.Context) {
+	var data request.PostBlogInfo
+	err := c.ShouldBindJSON(&data)
+	if err != nil {
+		response.FailWithDetailed(err, "PostBlogInfoApi ShouldBindJSON Error", c)
+		return
+	}
+	insertData := models.Blog{
+		Name:  data.Name,
+		Title: data.Title,
+		Text:  data.Text,
+		Tag:   data.Tag,
+	}
+	var ok bool
+	ok, err = service.ServiceGroupApp.SystemServiceGroup.BlogServiceEx.CreateBlogInfo(insertData)
+	if err != nil {
+		response.FailWithDetailed(err, "PostBlogInfoApi service Error", c)
+		return
+	}
+	if ok {
+		response.Ok(c)
+	} else {
+		response.FailWithDetailed(err, "PostBlogInfoApi name is exist Error", c)
+	}
+}
+
 func (s *BlogApi) DelBlogInfo(c *gin.Context) {
 	param := c.Param("blog")
 	err := service.ServiceGroupApp.SystemServiceGroup.BlogServiceEx.DelBlogInfo(param)
