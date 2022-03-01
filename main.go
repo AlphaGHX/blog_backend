@@ -3,7 +3,7 @@ package main
 import (
 	"blog/global"
 	"blog/initialize"
-	"blog/temp"
+	// "blog/temp"
 )
 
 func main() {
@@ -13,10 +13,10 @@ func main() {
 
 	initialize.InitUser()
 
-	temp.InsertTestData()
+	// temp.InsertTestData()
 
 	Router := initialize.Routers()
-	Router.Run(":12900")
+	Router.Run("localhost:12900")
 
 	sqlDB, _ := global.GROM.DB()
 	defer sqlDB.Close()

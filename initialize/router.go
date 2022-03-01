@@ -11,7 +11,9 @@ import (
 
 func Routers() *gin.Engine {
 	fmt.Println("INFO\t启动路由...")
+	gin.SetMode(gin.ReleaseMode)
 	Router := gin.Default()
+	Router.SetTrustedProxies(nil)
 	// Router.Use(cors.Default())
 
 	systemRouter := routers.RouterGroupApp.System

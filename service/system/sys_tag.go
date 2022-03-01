@@ -10,8 +10,17 @@ type TagService struct{}
 
 func (s *TagService) GetBlogUseTag(tag string) (list response.ListResponse, err error) {
 	var data response.ListResponse
-	result := global.GROM.Where("JSON_SEARCH(tag, 'all', ?)", tag).Find(&data)
-	return data, result.Error
+	var newData response.ListResponse
+	result := global.GROM.Order("updated_at desc").Find(&data)
+	for index, value := range data {
+		for _, cTag := range value.Tag {
+			if cTag == tag {
+				newData = append(newData, data[index])
+				break
+			}
+		}
+	}
+	return newData, result.Error
 }
 
 func (s *TagService) GetTagList() (list models.Tag, err error) {
