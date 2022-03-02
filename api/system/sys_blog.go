@@ -37,12 +37,18 @@ func (s *BlogApi) PostBlogFile(c *gin.Context) {
 		return
 	}
 	name := form.Value["name"]
-	files := form.File["files"]
+	markdown := form.File["markdown"]
+	topImg := form.File["topImg"]
 
 	os.Mkdir(global.CONFIG.Local.Bloghome+name[0], os.ModePerm)
 
-	c.SaveUploadedFile(files[0], global.CONFIG.Local.Bloghome+name[0]+global.CONFIG.Local.MarkdownPath)
-	c.SaveUploadedFile(files[1], global.CONFIG.Local.Bloghome+name[0]+global.CONFIG.Local.TopimgPath)
+	if (len(markdown) > 0) {
+		c.SaveUploadedFile(markdown[0], global.CONFIG.Local.Bloghome+name[0]+global.CONFIG.Local.MarkdownPath)
+	}
+
+	if (len(topImg) > 0) {
+		c.SaveUploadedFile(topImg[0], global.CONFIG.Local.Bloghome+name[0]+global.CONFIG.Local.TopimgPath)
+	}
 
 	response.Ok(c)
 }
