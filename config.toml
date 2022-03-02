@@ -1,5 +1,5 @@
 [local]
-bloghome = "./blog/"
+bloghome = "./blogs/"
 markdown-path = "/markdown"
 topimg-path = "/topImg"
 
@@ -9,4 +9,4 @@ expire-time = 604800
 
 [default-user]
 username = "alpha"
-password = "balabalabala"
+password = "alpha"
