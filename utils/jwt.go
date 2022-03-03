@@ -5,12 +5,11 @@ import (
 	"blog/models"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
-var jwtSecret = []byte(global.CONFIG.Jwt.Secret)
-
 func GetToken(userName string) (string, error) {
+	jwtSecret := global.KEY_FILE
 	expireTime := time.Now().Add(time.Duration(global.CONFIG.Jwt.ExpireTime) * time.Second)
 	claims := models.Claims{
 		Username: userName,
@@ -24,12 +23,16 @@ func GetToken(userName string) (string, error) {
 }
 
 func VerifyToken(tokenString string) (*models.Claims, error) {
+	jwtSecret := global.KEY_FILE
 	claims := &models.Claims{}
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
 		return jwtSecret, nil
 	})
-	if err != nil || !token.Valid {
+
+	//保证算法一致
+	if token.Header["alg"] == "HS256" && token.Valid && err == nil {
+		return claims, nil
+	} else {
 		return nil, err
 	}
-	return claims, nil
 }

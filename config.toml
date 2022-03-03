@@ -4,7 +4,8 @@ markdown-path = "/markdown"
 topimg-path = "/topImg"
 
 [jwt]
-secret = "balabalabala"
+# run 'ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key' to get key
+secret-path = "./jwtRS256.key"
 expire-time = 604800
 
 [default-user]

@@ -3,8 +3,8 @@ module blog
 go 1.17
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.7
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/spf13/viper v1.10.1
 	gorm.io/driver/sqlite v1.3.1
 	gorm.io/gorm v1.23.1

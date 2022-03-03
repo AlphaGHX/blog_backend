@@ -11,6 +11,8 @@ func main() {
 
 	global.GROM = initialize.Gorm()
 
+	global.KEY_FILE = initialize.InitKey()
+
 	initialize.InitUser()
 
 	// temp.InsertTestData()

@@ -13,4 +13,5 @@ var (
 	GROM      *gorm.DB
 	CONFIG    config.Config
 	VIPER     *viper.Viper
+	KEY_FILE	[]byte
 )
