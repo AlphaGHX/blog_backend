@@ -14,7 +14,7 @@ type ListApi struct {
 func (s *ListApi) GetList(c *gin.Context) {
 	list, err := service.ServiceGroupApp.SystemServiceGroup.ListService.GetBlogList()
 	if err != nil {
-		response.FailWithDetailed(err, "GetListApi Error", c)
+		response.FailWithMessage("GetListApi SQL Error", c)
 		return
 	}
 	response.OkWithData(list, c)

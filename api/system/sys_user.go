@@ -22,12 +22,12 @@ func (s *UserApi) VerifyUser(c *gin.Context) {
 	}
 	err := service.ServiceGroupApp.SystemServiceGroup.UserService.VerifyUser(user)
 	if err != nil {
-		response.FailWithDetailed(err, "VerifyUserApi ERROR", c)
+		response.FailWithMessage("VerifyUserApi SQL ERROR", c)
 		return
 	}
 	token, err := utils.GetToken(data.Username)
 	if err != nil {
-		response.FailWithDetailed(err, "GetToken ERROR", c)
+		response.FailWithMessage("GetToken ERROR", c)
 	}
 	response.OkWithData(gin.H{"token": token}, c)
 }

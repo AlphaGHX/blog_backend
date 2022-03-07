@@ -11,7 +11,7 @@ type TagService struct{}
 func (s *TagService) GetBlogUseTag(tag string) (list response.ListResponse, err error) {
 	var data response.ListResponse
 	var newData response.ListResponse
-	result := global.GROM.Order("updated_at desc").Find(&data)
+	result := global.GROM.Order("created_at desc").Find(&data)
 	for index, value := range data {
 		for _, cTag := range value.Tag {
 			if cTag == tag {
