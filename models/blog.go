@@ -10,6 +10,7 @@ type Blog struct {
 	Name      string    `gorm:"primarykey;not null;unique" json:"name"`
 	Title     string    `gorm:"not null" json:"title"`
 	Text      string    `gorm:"not null" json:"text"`
+	Views     uint      `gorm:"not null;default:0" json:"views"`
 	Tag       Tag       `gorm:"type:string" json:"tag"`
 	CreatedAt time.Time `json:"createdat"`
 	UpdatedAt time.Time `json:"updatedat"`

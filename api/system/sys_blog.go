@@ -14,12 +14,22 @@ import (
 type BlogApi struct {
 }
 
+// @Summary 通过博客名称获取博客的markdown文档
+// @Router /system/blog/:blog [get]
+// @Verify none
+// @Param uri 博客名称
+// @Success 200 text 博客内容
 func (s *BlogApi) GetBlog(c *gin.Context) {
 	local := global.CONFIG.Local
 	param := c.Param("blog")
 	c.File(local.Bloghome + param + local.MarkdownPath)
 }
 
+// @Summary 通过博客名称获取博客的详细信息
+// @Router /system/blog-info/:blog [get]
+// @Verify none
+// @Param uri 博客名称
+// @Success 200 json 博客详细信息
 func (s *BlogApi) GetBlogInfo(c *gin.Context) {
 	param := c.Param("blog")
 	data, err := service.ServiceGroupApp.SystemServiceGroup.BlogService.GetBlogInfo(param)
@@ -30,6 +40,11 @@ func (s *BlogApi) GetBlogInfo(c *gin.Context) {
 	response.OkWithData(data, c)
 }
 
+// @Summary 创建或更新博客的图片和markdown文档
+// @Router /system/blog/uploadfile [post]
+// @Verify JWT
+// @Param headers x-token "JWT" body form-data key:{files: [markdownFile, imgFile], name: "博客名字"}
+// @Success 200
 func (s *BlogApi) PostBlogFile(c *gin.Context) {
 	form, err := c.MultipartForm()
 	if err != nil {
@@ -53,6 +68,11 @@ func (s *BlogApi) PostBlogFile(c *gin.Context) {
 	response.Ok(c)
 }
 
+// @Summary 更新博客的详细信息
+// @Router /system/blog/uploadinfo [post]
+// @Verify JWT
+// @Param headers x-token "JWT" body raw json {name: "博客名字", title: "博客标题", text: "简述", tag: [..."标签"]}
+// @Success 200
 func (s *BlogApi) PostBlogInfo(c *gin.Context) {
 	var data request.PostBlogInfo
 	err := c.ShouldBindJSON(&data)
@@ -74,6 +94,11 @@ func (s *BlogApi) PostBlogInfo(c *gin.Context) {
 	response.Ok(c)
 }
 
+// @Summary 创建博客博客的详细信息
+// @Router /system/blog/createinfo [post]
+// @Verify JWT
+// @Param headers x-token "JWT" body raw json {name: "博客名字", title: "博客标题", text: "简述", tag: [..."标签"]}
+// @Success 200
 func (s *BlogApi) CreateBlogInfo(c *gin.Context) {
 	var data request.PostBlogInfo
 	err := c.ShouldBindJSON(&data)
@@ -100,6 +125,11 @@ func (s *BlogApi) CreateBlogInfo(c *gin.Context) {
 	}
 }
 
+// @Summary 删除博客的图片和markdown文档
+// @Router /system/blog/uploadfile [post]
+// @Verify JWT
+// @Param headers x-token "JWT" uri "博客名字"
+// @Success 200
 func (s *BlogApi) DelBlogInfo(c *gin.Context) {
 	param := c.Param("blog")
 	err := service.ServiceGroupApp.SystemServiceGroup.BlogServiceEx.DelBlogInfo(param)
