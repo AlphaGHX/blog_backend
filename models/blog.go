@@ -13,7 +13,6 @@ type Blog struct {
 	Views     uint      `gorm:"not null;default:0" json:"views"`
 	Tag       Tag       `gorm:"type:string" json:"tag"`
 	CreatedAt time.Time `json:"createdat"`
-	UpdatedAt time.Time `json:"updatedat"`
 }
 
 type Tag []string
