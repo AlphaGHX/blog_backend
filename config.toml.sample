@@ -1,0 +1,25 @@
+# 这是config.toml的示例文件，如果需要使用，请重命名为config.toml。
+
+[local]
+# 你的博客内容（图片，md文件）储存的目录
+bloghome = "./blogs/"
+# markdown文档储存的目录名
+markdown-path = "/markdown"
+# 图片储存的目录名
+topimg-path = "/topImg"
+# 监听选项
+listening-addr = "localhost:3090"
+
+[jwt]
+# 运行 'ssh-keygen -t rsa -b 2048 -m PKCS8 -f jwtRS256.key' 获得私钥
+private-key = "./jwtRS256.key"
+# 运行 'ssh-keygen -e -m PKCS8 -f jwtRS256.key > jwtRS256.key.pub' 获得PKCS8格式的公钥
+public-key = "./jwtRS256.key.pub"
+# jwt 过期时间，单位：秒
+expire-time = 604800
+
+[default-user]
+# 管理员的用户名，用于登录后台增删改查博客
+username = "yourAdminUsername"
+# 管理员密码
+password = "yourAdminPassword"

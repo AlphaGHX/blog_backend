@@ -4,6 +4,7 @@ import (
 	"blog/global"
 	"blog/initialize"
 	"fmt"
+	"os"
 	// "blog/test"
 )
 
@@ -17,6 +18,8 @@ func main() {
 	initialize.InitUser()
 
 	// test.InsertTestData()
+
+	os.Mkdir(global.CONFIG.Local.Bloghome, os.ModePerm)
 
 	Router := initialize.Routers()
 	fmt.Printf("Listen:\t%s\n", global.CONFIG.Local.ListeningAddr)

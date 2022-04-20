@@ -3,17 +3,14 @@ package system
 import (
 	"blog/global"
 	"blog/models"
-	"errors"
-
-	"gorm.io/gorm"
 )
 
 type BlogServiceEx struct{}
 
 func (s *BlogServiceEx) PostBlogInfo(data models.Blog) (err error) {
 	var oldData models.Blog
-	test := global.GROM.Where("name = ?", data.Name).First(&oldData)
-	if errors.Is(test.Error, gorm.ErrRecordNotFound) {
+	test := global.GROM.Where("name = ?", data.Name).Find(&oldData)
+	if test.RowsAffected == 0 {
 		result := global.GROM.Create(&data)
 		return result.Error
 	} else {
@@ -27,8 +24,8 @@ func (s *BlogServiceEx) PostBlogInfo(data models.Blog) (err error) {
 
 func (s *BlogServiceEx) CreateBlogInfo(data models.Blog) (ok bool, err error) {
 	var oldData models.Blog
-	test := global.GROM.Where("name = ?", data.Name).First(&oldData)
-	if errors.Is(test.Error, gorm.ErrRecordNotFound) {
+	test := global.GROM.Where("name = ?", data.Name).Find(&oldData)
+	if test.RowsAffected == 0 {
 		result := global.GROM.Create(&data)
 		return true, result.Error
 	} else {
