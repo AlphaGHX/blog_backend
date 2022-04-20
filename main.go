@@ -3,22 +3,24 @@ package main
 import (
 	"blog/global"
 	"blog/initialize"
-	// "blog/temp"
+	"fmt"
+	// "blog/test"
 )
 
 func main() {
 	global.VIPER = initialize.Viper()
 
-	global.GROM = initialize.Gorm()
+	global.PrivateKey, global.PublicKey = initialize.InitKey()
 
-	global.KEY_FILE = initialize.InitKey()
+	global.GROM = initialize.Gorm()
 
 	initialize.InitUser()
 
-	// temp.InsertTestData()
+	// test.InsertTestData()
 
 	Router := initialize.Routers()
-	Router.Run("localhost:12900")
+	fmt.Printf("Listen:\t%s\n", global.CONFIG.Local.ListeningAddr)
+	Router.Run(global.CONFIG.Local.ListeningAddr)
 
 	sqlDB, _ := global.GROM.DB()
 	defer sqlDB.Close()

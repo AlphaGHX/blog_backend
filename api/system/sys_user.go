@@ -33,6 +33,7 @@ func (s *UserApi) VerifyUser(c *gin.Context) {
 	token, err := utils.GetToken(data.Username)
 	if err != nil {
 		response.FailWithMessage("GetToken ERROR", c)
+		return
 	}
 	response.OkWithData(gin.H{"token": token}, c)
 }

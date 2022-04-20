@@ -2,20 +2,32 @@ package initialize
 
 import (
 	"blog/global"
+	"crypto/rsa"
 	"fmt"
 	"io/ioutil"
-	"os"
+
+	"github.com/golang-jwt/jwt"
 )
 
-func InitKey() []byte {
-	file, err := os.Open(global.CONFIG.Jwt.SecretPath)
+func InitKey() (*rsa.PrivateKey, *rsa.PublicKey) {
+	privateKeyByte, err := ioutil.ReadFile(global.CONFIG.Jwt.PrivateKeyPath)
+	fmt.Println("INIT\t PrivateKey & PublicKey")
 	if err != nil {
-		panic(fmt.Errorf("ERROR\tjwtKey打开时错误: %v", err))
+		panic(fmt.Errorf("ERROR\t Loading PrivateKey: %v", err))
 	}
-	defer file.Close()
-	sha256key, err := ioutil.ReadAll(file)
+	privateKey, err := jwt.ParseRSAPrivateKeyFromPEM(privateKeyByte)
 	if err != nil {
-		panic(fmt.Errorf("ERROR\tjwtKey读取时错误: %v", err))
+		panic(fmt.Errorf("ERROR\t Parse PrivateKey: %v", err))
 	}
-	return sha256key
+
+	publickKeyByte, err := ioutil.ReadFile(global.CONFIG.Jwt.PublicKeyPath)
+	if err != nil {
+		panic(fmt.Errorf("ERROR\t Loading PublicKey: %v", err))
+	}
+	publickKey, err := jwt.ParseRSAPublicKeyFromPEM(publickKeyByte)
+	if err != nil {
+		panic(fmt.Errorf("ERROR\t Parse PublicKey: %v", err))
+	}
+	fmt.Println("DONE\t PrivateKey & PublicKey")
+	return privateKey, publickKey
 }

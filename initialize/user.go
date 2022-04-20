@@ -3,6 +3,9 @@ package initialize
 import (
 	"blog/global"
 	"blog/models"
+	"errors"
+
+	"gorm.io/gorm"
 )
 
 func InitUser() {
@@ -10,5 +13,8 @@ func InitUser() {
 		Username: global.CONFIG.User.Username,
 		Password: global.CONFIG.User.Password,
 	}
-	global.GROM.Create(&user)
+	global.GROM.First(&user)
+	if errors.Is(global.GROM.First(&user).Error, gorm.ErrRecordNotFound) {
+		global.GROM.Create(&user)
+	}
 }

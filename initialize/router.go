@@ -10,7 +10,7 @@ import (
 )
 
 func Routers() *gin.Engine {
-	fmt.Println("INFO\t启动路由...")
+	fmt.Println("INIT\t Route")
 	gin.SetMode(gin.ReleaseMode)
 	Router := gin.Default()
 	Router.SetTrustedProxies(nil)
@@ -33,6 +33,6 @@ func Routers() *gin.Engine {
 		systemRouter.InitUserRouterEx(PrivateGroup)
 	}
 
-	fmt.Println("DONE\t路由启动成功")
+	fmt.Println("DONE\t Route")
 	return Router
 }
