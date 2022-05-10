@@ -1,11 +1,11 @@
 package system
 
 import (
-	"blog/global"
 	"blog/models"
 	"blog/models/request"
 	"blog/models/response"
 	"blog/service"
+	"blog/utils"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -20,9 +20,8 @@ type BlogApi struct {
 // @Param uri 博客名称
 // @Success 200 text 博客内容
 func (s *BlogApi) GetBlog(c *gin.Context) {
-	local := global.CONFIG.Local
 	param := c.Param("blog")
-	c.File(local.Bloghome + param + local.MarkdownPath)
+	c.File(utils.GetBlogMarkdownPath(param))
 }
 
 // @Summary 通过博客名称获取博客的详细信息
@@ -55,14 +54,14 @@ func (s *BlogApi) PostBlogFile(c *gin.Context) {
 	markdown := form.File["markdown"]
 	topImg := form.File["topImg"]
 
-	os.Mkdir(global.CONFIG.Local.Bloghome+name[0], os.ModePerm)
+	os.Mkdir(utils.GetBlogPath(name[0]), os.ModePerm)
 
 	if len(markdown) > 0 {
-		c.SaveUploadedFile(markdown[0], global.CONFIG.Local.Bloghome+name[0]+global.CONFIG.Local.MarkdownPath)
+		c.SaveUploadedFile(markdown[0], utils.GetBlogMarkdownPath(name[0]))
 	}
 
 	if len(topImg) > 0 {
-		c.SaveUploadedFile(topImg[0], global.CONFIG.Local.Bloghome+name[0]+global.CONFIG.Local.TopimgPath)
+		c.SaveUploadedFile(topImg[0], utils.GetBlogTopimgPath(name[0]))
 	}
 
 	response.Ok(c)
@@ -132,11 +131,13 @@ func (s *BlogApi) CreateBlogInfo(c *gin.Context) {
 // @Success 200
 func (s *BlogApi) DelBlogInfo(c *gin.Context) {
 	param := c.Param("blog")
+
 	err := service.ServiceGroupApp.SystemServiceGroup.BlogServiceEx.DelBlogInfo(param)
 	if err != nil {
 		response.FailWithMessage("DelBlogInfoApi SQL Error", c)
 	}
-	err = os.RemoveAll(global.CONFIG.Local.Bloghome + param)
+
+	err = os.RemoveAll(utils.GetBlogPath(param))
 	if err != nil {
 		response.FailWithMessage("DelBlogInfoApi file operations Error", c)
 	}

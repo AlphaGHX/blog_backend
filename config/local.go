@@ -1,8 +1,10 @@
 package config
 
 type Local struct {
-	Bloghome      string `mapstructure:"bloghome"`
-	MarkdownPath  string `mapstructure:"markdown-path"`
-	TopimgPath    string `mapstructure:"topimg-path"`
+	BloghomeDir   string `mapstructure:"bloghome-dir"`
+	UserhomeDir   string `mapstructure:"userhome-dir"`
+	MarkdownFile  string `mapstructure:"markdown-file"`
+	TopimgFile    string `mapstructure:"topimg-file"`
+	DataDir       string `mapstructure:"data-dir"`
 	ListeningAddr string `mapstructure:"listening-addr"`
 }

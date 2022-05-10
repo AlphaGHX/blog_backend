@@ -1,12 +1,7 @@
 # 这是config.toml的示例文件，如果需要使用，请重命名为config.toml。
+# 博客的数据文件存储在data文件夹下。
 
 [local]
-# 你的博客内容（图片，md文件）储存的目录
-bloghome = "./blogs/"
-# markdown文档储存的目录名
-markdown-path = "/markdown"
-# 图片储存的目录名
-topimg-path = "/topImg"
 # 监听选项
 listening-addr = "localhost:3090"
 
