@@ -15,14 +15,14 @@ func Gorm() *gorm.DB {
 	} else {
 		fmt.Println("DONE\t Database")
 		fmt.Println("INIT\t AutoMigrate")
-		setUpMysql(db)
+		setUpSQLite(db)
 		fmt.Println("DONE\t AutoMigrate")
 		return db
 	}
 }
 
-func setUpMysql(db *gorm.DB) {
-	if err := db.AutoMigrate(models.Blog{}, models.User{}); err != nil {
+func setUpSQLite(db *gorm.DB) {
+	if err := db.AutoMigrate(models.Blog{}, models.User{}, models.MyLink{}); err != nil {
 		panic(fmt.Errorf("ERROR\t AutoMigrate: %v", err))
 	}
 }

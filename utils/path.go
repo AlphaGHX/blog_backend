@@ -21,3 +21,8 @@ func GetBlogMarkdownPath(blogName string) string {
 func GetBlogTopimgPath(blogName string) string {
 	return fp.Join(local.BloghomeDir, blogName, local.TopimgFile)
 }
+
+// 管理员头像文件路径
+func GetAdminAvatarPath() string {
+	return fp.Join(local.UserhomeDir, local.AdminAvatarFile)
+}

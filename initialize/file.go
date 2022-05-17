@@ -11,6 +11,7 @@ func InitFile() {
 	Local.DataDir = "data"
 	Local.BloghomeDir = fp.Join(Local.DataDir, "blogs")
 	Local.UserhomeDir = fp.Join(Local.DataDir, "user")
+	Local.AdminAvatarFile = "admin-avatar"
 	Local.MarkdownFile = "markdown"
 	Local.TopimgFile = "topimg"
 
