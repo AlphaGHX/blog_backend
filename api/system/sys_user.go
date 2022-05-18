@@ -1,12 +1,14 @@
 package system
 
 import (
-	"blog/global"
 	"blog/models"
 	"blog/models/request"
 	"blog/models/response"
 	"blog/service"
 	"blog/utils"
+	"encoding/base64"
+	"io/ioutil"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -68,9 +70,29 @@ func (s *UserApi) GetAdminInfo(c *gin.Context) {
 		response.FailWithMessage("GetAdminInfo ERROR", c)
 		return
 	}
-	adminInfo := response.AdminInfo{
-		Nickname: global.CONFIG.User.Nickname,
-		MyLinks:  data,
+	response.OkWithData(data, c)
+}
+
+// @Summary 修改管理员信息
+// @Router /system/set-admin-info [post]
+// @Verify JWT
+// @Param raw JSON Nickname string, Describe string, Avatar string
+// @Success 200
+func (s *UserApi) SetAdminInfo(c *gin.Context) {
+	var data request.SetAdminInfo
+	c.ShouldBindJSON(&data)
+
+	byteImg, err := base64.StdEncoding.DecodeString(data.Avatar)
+	if err != nil {
+		response.FailWithMessage("Base64 decode ERROR", c)
+		return
 	}
-	response.OkWithData(adminInfo, c)
+
+	err = ioutil.WriteFile(utils.GetAdminAvatarPath(), byteImg, os.ModePerm)
+	if err != nil {
+		response.FailWithMessage("Avatar WriteFile ERROR", c)
+		return
+	}
+
+
 }
