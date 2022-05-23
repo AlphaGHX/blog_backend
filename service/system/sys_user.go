@@ -3,6 +3,7 @@ package system
 import (
 	"blog/global"
 	"blog/models"
+	"blog/models/request"
 	"blog/models/response"
 	"errors"
 )
@@ -14,7 +15,7 @@ func (s *UserService) VerifyUser(user models.User) error {
 	var data models.User
 	result := global.GROM.Find(&data, map[string]interface{}{"username": user.Username, "password": user.Password})
 	if result.RowsAffected == 0 {
-		return errors.New("VerifyUser Error")
+		return errors.New("VerifyUser error")
 	}
 	return result.Error
 }
@@ -23,13 +24,13 @@ func (s *UserService) GetAdminInfo() (*response.GetAdminInfo, error) {
 	var myLinks []models.MyLink
 	result := global.GROM.Find(&myLinks)
 	if result.Error != nil {
-		return nil, errors.New("find myLinks Error")
+		return nil, errors.New("find myLinks error")
 	}
 
 	var adminInfo models.User
 	result = global.GROM.Find(&adminInfo)
 	if result.Error != nil {
-		return nil, errors.New("find adminInfo Error")
+		return nil, errors.New("find adminInfo error")
 	}
 
 	data := response.GetAdminInfo{
@@ -41,6 +42,25 @@ func (s *UserService) GetAdminInfo() (*response.GetAdminInfo, error) {
 	return &data, nil
 }
 
-// func (s *UserService) SetAdminInfo(response.GetAdminInfo) error {
+func (s *UserService) SetAdminInfo(adminInfo request.SetAdminInfo) error {
+	var data models.User
+	global.GROM.Find(&data)
+	{
+		data.Describe = adminInfo.Describe
+		data.Nickname = adminInfo.Nickname
+	}
+	result := global.GROM.Save(&data)
+	if result.Error != nil {
+		return errors.New("update user error")
+	}
 
-// }
+	// 删除表中所有数据
+	global.GROM.Exec("DELETE FROM my_links")
+
+	result = global.GROM.Create(adminInfo.MyLinks)
+	if result.Error != nil {
+		return errors.New("create my_links error")
+	}
+
+	return nil
+}

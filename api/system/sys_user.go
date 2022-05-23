@@ -28,16 +28,19 @@ func (s *UserApi) VerifyUser(c *gin.Context) {
 		Username: data.Username,
 		Password: data.Password,
 	}
+
 	err := service.ServiceGroupApp.SystemServiceGroup.UserService.VerifyUser(user)
 	if err != nil {
 		response.FailWithMessage("VerifyUserApi SQL ERROR", c)
 		return
 	}
+
 	token, err := utils.GetToken(data.Username)
 	if err != nil {
 		response.FailWithMessage("GetToken ERROR", c)
 		return
 	}
+
 	response.OkWithData(gin.H{"token": token}, c)
 }
 
@@ -70,6 +73,7 @@ func (s *UserApi) GetAdminInfo(c *gin.Context) {
 		response.FailWithMessage("GetAdminInfo ERROR", c)
 		return
 	}
+
 	response.OkWithData(data, c)
 }
 
@@ -94,5 +98,11 @@ func (s *UserApi) SetAdminInfo(c *gin.Context) {
 		return
 	}
 
+	err = service.ServiceGroupApp.SystemServiceGroup.SetAdminInfo(data)
+	if err != nil {
+		response.FailWithMessage("SetAdminInfoApi SQL ERROR", c)
+		return
+	}
 
+	response.Ok(c)
 }

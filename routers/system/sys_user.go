@@ -14,7 +14,7 @@ func (b *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	var userApi = api.ApiGroupApp.SystemApiGroup.UserApi
 	{
 		userRouter.GET("get-admin-info", userApi.GetAdminInfo)
-		userRouter.GET("avatar", userApi.GetAdminAvatar)
+		userRouter.GET("get-admin-avatar", userApi.GetAdminAvatar)
 		userRouter.POST("user-verify", userApi.VerifyUser)
 	}
 }

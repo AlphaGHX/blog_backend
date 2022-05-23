@@ -3,6 +3,7 @@ package system
 import (
 	"blog/global"
 	"blog/models"
+	"errors"
 )
 
 type BlogServiceEx struct{}
@@ -12,12 +13,18 @@ func (s *BlogServiceEx) PostBlogInfo(data models.Blog) (err error) {
 	test := global.GROM.Where("name = ?", data.Name).Find(&oldData)
 	if test.RowsAffected == 0 {
 		result := global.GROM.Create(&data)
-		return result.Error
+		if result.Error != nil {
+			return errors.New("error: service.PostBlogInfo CreateBlogInfo")
+		}
+		return nil
 	} else {
 		oldData.Title = data.Title
 		oldData.Text = data.Text
 		oldData.Tag = data.Tag
 		result := global.GROM.Save(&oldData)
+		if result.Error != nil  {
+			return errors.New("error: ")
+		}
 		return result.Error
 	}
 }
