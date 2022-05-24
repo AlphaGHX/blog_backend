@@ -13,7 +13,7 @@ func main() {
 	global.VIPER = initialize.Viper()
 
 	// 加载密钥
-	global.PRIVATE_KEY, global.PUBLICK_KEY = initialize.InitKey()
+	global.PRIVATE_KEY, global.PUBLIC_KEY = initialize.InitKey()
 
 	// 初始化ORM
 	global.GROM = initialize.Gorm()

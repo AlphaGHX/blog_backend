@@ -27,7 +27,7 @@ func VerifyToken(tokenString string) (*models.Claims, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 			return nil, errors.New("验证Token的加密类型错误")
 		}
-		return global.PUBLICK_KEY, nil
+		return global.PUBLIC_KEY, nil
 	})
 
 	if token.Valid && err == nil {

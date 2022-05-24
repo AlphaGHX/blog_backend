@@ -16,5 +16,5 @@ var (
 	FILE_LOG    *logrus.Logger
 	STD_LOG     *logrus.Logger
 	PRIVATE_KEY *rsa.PrivateKey
-	PUBLICK_KEY *rsa.PublicKey
+	PUBLIC_KEY  *rsa.PublicKey
 )
