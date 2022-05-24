@@ -3,15 +3,17 @@ package main
 import (
 	"blog/global"
 	"blog/initialize"
-	"fmt"
 )
 
 func main() {
+	// 初始化日志系统
+	global.FILE_LOG, global.STD_LOG = initialize.Logrus()
+
 	// 加载配置文件
 	global.VIPER = initialize.Viper()
 
 	// 加载密钥
-	global.PrivateKey, global.PublicKey = initialize.InitKey()
+	global.PRIVATE_KEY, global.PUBLICK_KEY = initialize.InitKey()
 
 	// 初始化ORM
 	global.GROM = initialize.Gorm()
@@ -24,7 +26,8 @@ func main() {
 
 	// 初始化路由
 	Router := initialize.Routers()
-	fmt.Printf("Listen:\t%s\n", global.CONFIG.Local.ListeningAddr)
+	global.STD_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
+	global.FILE_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
 	Router.Run(global.CONFIG.Local.ListeningAddr)
 
 	sqlDB, _ := global.GROM.DB()

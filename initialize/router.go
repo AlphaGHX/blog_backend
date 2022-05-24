@@ -3,18 +3,14 @@ package initialize
 import (
 	"blog/middleware"
 	"blog/routers"
-	"fmt"
 
-	// "github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func Routers() *gin.Engine {
-	fmt.Println("INIT\t Route")
 	gin.SetMode(gin.ReleaseMode)
 	Router := gin.Default()
 	Router.SetTrustedProxies(nil)
-	// Router.Use(cors.Default())
 
 	systemRouter := routers.RouterGroupApp.System
 
@@ -33,6 +29,5 @@ func Routers() *gin.Engine {
 		systemRouter.InitUserRouterEx(PrivateGroup)
 	}
 
-	fmt.Println("DONE\t Route")
 	return Router
 }

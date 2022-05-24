@@ -2,18 +2,19 @@ package global
 
 import (
 	"blog/config"
-	"blog/models"
 	"crypto/rsa"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
 )
 
 var (
-	BLOG_LIST  map[string]models.Blog
-	GROM       *gorm.DB
-	CONFIG     config.Config
-	VIPER      *viper.Viper
-	PrivateKey *rsa.PrivateKey
-	PublicKey  *rsa.PublicKey
+	GROM        *gorm.DB
+	CONFIG      config.Config
+	VIPER       *viper.Viper
+	FILE_LOG    *logrus.Logger
+	STD_LOG     *logrus.Logger
+	PRIVATE_KEY *rsa.PrivateKey
+	PUBLICK_KEY *rsa.PublicKey
 )

@@ -17,7 +17,7 @@ func GetToken(userName string) (string, error) {
 			ExpiresAt: expireTime.Unix(),
 		},
 	}
-	token, err := jwt.NewWithClaims(jwt.SigningMethodRS256, claims).SignedString(global.PrivateKey)
+	token, err := jwt.NewWithClaims(jwt.SigningMethodRS256, claims).SignedString(global.PRIVATE_KEY)
 	return token, err
 }
 
@@ -27,7 +27,7 @@ func VerifyToken(tokenString string) (*models.Claims, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 			return nil, errors.New("验证Token的加密类型错误")
 		}
-		return global.PublicKey, nil
+		return global.PUBLICK_KEY, nil
 	})
 
 	if token.Valid && err == nil {
