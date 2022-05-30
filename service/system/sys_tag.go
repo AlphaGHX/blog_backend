@@ -11,7 +11,7 @@ type TagService struct{}
 func (s *TagService) GetBlogUseTag(tag string) (list *response.ListResponse, err error) {
 	var data response.ListResponse
 	var newData response.ListResponse
-	result := global.GROM.Order("created_at desc").Find(&data)
+	result := global.GORM.Order("created_at desc").Find(&data)
 	if result.Error != nil {
 		global.STD_LOG.Errorln("TagService.GetBlogUseTag Find", result.Error.Error())
 		global.FILE_LOG.Errorln("TagService.GetBlogUseTag Find", result.Error.Error())
@@ -31,7 +31,7 @@ func (s *TagService) GetBlogUseTag(tag string) (list *response.ListResponse, err
 func (s *TagService) GetTagList() (list *models.Tag, err error) {
 	var tempData response.ListResponse
 	var data models.Tag
-	result := global.GROM.Select("tag").Find(&tempData)
+	result := global.GORM.Select("tag").Find(&tempData)
 	if result.Error != nil {
 		global.STD_LOG.Errorln("TagService.GetTagList Find", result.Error.Error())
 		global.FILE_LOG.Errorln("TagService.GetTagList Find", result.Error.Error())

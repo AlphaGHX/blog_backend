@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	GROM        *gorm.DB
+	GORM        *gorm.DB
 	CONFIG      config.Config
 	VIPER       *viper.Viper
 	FILE_LOG    *logrus.Logger

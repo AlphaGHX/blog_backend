@@ -16,7 +16,7 @@ func main() {
 	global.PRIVATE_KEY, global.PUBLIC_KEY = initialize.InitKey()
 
 	// 初始化ORM
-	global.GROM = initialize.Gorm()
+	global.GORM = initialize.Gorm()
 
 	// 初始化管理员
 	initialize.InitUser()
@@ -30,6 +30,6 @@ func main() {
 	global.FILE_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
 	Router.Run(global.CONFIG.Local.ListeningAddr)
 
-	sqlDB, _ := global.GROM.DB()
+	sqlDB, _ := global.GORM.DB()
 	defer sqlDB.Close()
 }
