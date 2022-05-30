@@ -3,7 +3,6 @@ package initialize
 import (
 	"blog/global"
 	"crypto/rsa"
-	"fmt"
 	"io/ioutil"
 
 	"github.com/golang-jwt/jwt"
@@ -11,23 +10,25 @@ import (
 
 func InitKey() (*rsa.PrivateKey, *rsa.PublicKey) {
 	privateKeyByte, err := ioutil.ReadFile(global.CONFIG.Jwt.PrivateKeyPath)
-	fmt.Println("INIT\t PrivateKey & PublicKey")
 	if err != nil {
-		panic(fmt.Errorf("ERROR\t Loading PrivateKey: %v", err))
+		global.STD_LOG.Errorln("Loading PrivateKey: ", err)
+		panic(err)
 	}
 	privateKey, err := jwt.ParseRSAPrivateKeyFromPEM(privateKeyByte)
 	if err != nil {
-		panic(fmt.Errorf("ERROR\t Parse PrivateKey: %v", err))
+		global.STD_LOG.Errorln("Loading PrivateKey: ", err)
+		panic(err)
 	}
 
 	publickKeyByte, err := ioutil.ReadFile(global.CONFIG.Jwt.PublicKeyPath)
 	if err != nil {
-		panic(fmt.Errorf("ERROR\t Loading PublicKey: %v", err))
+		global.STD_LOG.Errorln("Loading PublicKey: ", err)
+		panic(err)
 	}
 	publickKey, err := jwt.ParseRSAPublicKeyFromPEM(publickKeyByte)
 	if err != nil {
-		panic(fmt.Errorf("ERROR\t Parse PublicKey: %v", err))
+		global.STD_LOG.Errorln("Parse PublicKey: ", err)
+		panic(err)
 	}
-	fmt.Println("DONE\t PrivateKey & PublicKey")
 	return privateKey, publickKey
 }

@@ -27,5 +27,5 @@ func InsertTestData() {
 		},
 	}
 
-	global.GROM.Create(&data)
+	global.GORM.Create(&data)
 }

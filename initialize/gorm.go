@@ -1,28 +1,26 @@
 package initialize
 
 import (
+	"blog/global"
 	"blog/models"
-	"fmt"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func Gorm() *gorm.DB {
-	fmt.Println("INIT\t Database")
 	if db, err := gorm.Open(sqlite.Open("blog.db")); err != nil {
-		panic(fmt.Errorf("ERROR\t connecting to database: %v", err))
+		global.STD_LOG.Errorln("connecting to database: ", err)
+		panic(err)
 	} else {
-		fmt.Println("DONE\t Database")
-		fmt.Println("INIT\t AutoMigrate")
-		setUpMysql(db)
-		fmt.Println("DONE\t AutoMigrate")
+		setUpSQLite(db)
 		return db
 	}
 }
 
-func setUpMysql(db *gorm.DB) {
-	if err := db.AutoMigrate(models.Blog{}, models.User{}); err != nil {
-		panic(fmt.Errorf("ERROR\t AutoMigrate: %v", err))
+func setUpSQLite(db *gorm.DB) {
+	if err := db.AutoMigrate(models.Blog{}, models.User{}, models.MyLink{}); err != nil {
+		global.STD_LOG.Errorln("connecting to database: ", err)
+		panic(err)
 	}
 }

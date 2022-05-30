@@ -18,8 +18,11 @@
 *.key
 *.pub
 
+# LOG file
+*.log
+
 config.toml
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-blogs/
+data/

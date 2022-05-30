@@ -14,5 +14,6 @@ func (b *UserRouterEx) InitUserRouterEx(Router *gin.RouterGroup) {
 	var userApi = api.ApiGroupApp.SystemApiGroup.UserApi
 	{
 		userRouter.POST("token-verify", userApi.VerifyToken)
+		userRouter.POST("set-admin-info", userApi.SetAdminInfo)
 	}
 }

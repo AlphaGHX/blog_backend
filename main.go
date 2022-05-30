@@ -3,28 +3,33 @@ package main
 import (
 	"blog/global"
 	"blog/initialize"
-	"fmt"
-	"os"
-	// "blog/test"
 )
 
 func main() {
+	// 初始化日志系统
+	global.FILE_LOG, global.STD_LOG = initialize.Logrus()
+
+	// 加载配置文件
 	global.VIPER = initialize.Viper()
 
-	global.PrivateKey, global.PublicKey = initialize.InitKey()
+	// 加载密钥
+	global.PRIVATE_KEY, global.PUBLIC_KEY = initialize.InitKey()
 
-	global.GROM = initialize.Gorm()
+	// 初始化ORM
+	global.GORM = initialize.Gorm()
 
+	// 初始化管理员
 	initialize.InitUser()
 
-	// test.InsertTestData()
+	// 创建本地数据目录
+	initialize.InitFile()
 
-	os.Mkdir(global.CONFIG.Local.Bloghome, os.ModePerm)
-
+	// 初始化路由
 	Router := initialize.Routers()
-	fmt.Printf("Listen:\t%s\n", global.CONFIG.Local.ListeningAddr)
+	global.STD_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
+	global.FILE_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
 	Router.Run(global.CONFIG.Local.ListeningAddr)
 
-	sqlDB, _ := global.GROM.DB()
+	sqlDB, _ := global.GORM.DB()
 	defer sqlDB.Close()
 }
