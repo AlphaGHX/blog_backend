@@ -13,8 +13,7 @@ func (s *TagService) GetBlogUseTag(tag string) (list *response.ListResponse, err
 	var newData response.ListResponse
 	result := global.GORM.Order("created_at desc").Find(&data)
 	if result.Error != nil {
-		global.STD_LOG.Errorln("TagService.GetBlogUseTag Find", result.Error.Error())
-		global.FILE_LOG.Errorln("TagService.GetBlogUseTag Find", result.Error.Error())
+		global.LOG.Errorln("TagService.GetBlogUseTag Find", result.Error.Error())
 		return nil, result.Error
 	}
 	for index, value := range data {
@@ -33,8 +32,7 @@ func (s *TagService) GetTagList() (list *models.Tag, err error) {
 	var data models.Tag
 	result := global.GORM.Select("tag").Find(&tempData)
 	if result.Error != nil {
-		global.STD_LOG.Errorln("TagService.GetTagList Find", result.Error.Error())
-		global.FILE_LOG.Errorln("TagService.GetTagList Find", result.Error.Error())
+		global.LOG.Errorln("TagService.GetTagList Find", result.Error.Error())
 		return nil, result.Error
 	}
 	for _, v := range tempData {

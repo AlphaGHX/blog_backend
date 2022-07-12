@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// 初始化日志系统
-	global.FILE_LOG, global.STD_LOG = initialize.Logrus()
+	global.LOG = initialize.Logrus()
 
 	// 加载配置文件
 	global.VIPER = initialize.Viper()
@@ -26,8 +26,7 @@ func main() {
 
 	// 初始化路由
 	Router := initialize.Routers()
-	global.STD_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
-	global.FILE_LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
+	global.LOG.Infoln("Listen: ", global.CONFIG.Local.ListeningAddr)
 	Router.Run(global.CONFIG.Local.ListeningAddr)
 
 	sqlDB, _ := global.GORM.DB()

@@ -11,11 +11,11 @@ func Viper() *viper.Viper {
 	v.SetConfigFile("./config.toml")
 	v.SetConfigType("toml")
 	if err := v.ReadInConfig(); err != nil {
-		global.STD_LOG.Errorln("reading configuration file: ", err)
+		global.LOG.Errorln("reading configuration file: ", err)
 		panic(err)
 	}
 	if err := v.Unmarshal(&global.CONFIG); err != nil {
-		global.STD_LOG.Errorln("parsing configuration file: ", err)
+		global.LOG.Errorln("parsing configuration file: ", err)
 		panic(err)
 	}
 	return v

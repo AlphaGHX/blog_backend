@@ -13,8 +13,7 @@ func (s *ListService) GetBlogList() (BlogList *response.ListResponse, err error)
 
 	result := global.GORM.Order("created_at desc").Find(&data)
 	if result.Error != nil {
-		global.STD_LOG.Errorln("ListService.GetBlogList Find", result.Error.Error())
-		global.FILE_LOG.Errorln("ListService.GetBlogList Find", result.Error.Error())
+		global.LOG.Errorln("ListService.GetBlogList Find", result.Error.Error())
 		return nil, result.Error
 	}
 

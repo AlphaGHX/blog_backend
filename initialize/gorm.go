@@ -10,7 +10,7 @@ import (
 
 func Gorm() *gorm.DB {
 	if db, err := gorm.Open(sqlite.Open("blog.db")); err != nil {
-		global.STD_LOG.Errorln("connecting to database: ", err)
+		global.LOG.Errorln("connecting to database: ", err)
 		panic(err)
 	} else {
 		setUpSQLite(db)
@@ -20,7 +20,7 @@ func Gorm() *gorm.DB {
 
 func setUpSQLite(db *gorm.DB) {
 	if err := db.AutoMigrate(models.Blog{}, models.User{}, models.MyLink{}); err != nil {
-		global.STD_LOG.Errorln("connecting to database: ", err)
+		global.LOG.Errorln("connecting to database: ", err)
 		panic(err)
 	}
 }
