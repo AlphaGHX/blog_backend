@@ -1,5 +1,14 @@
 # 这是config.toml的示例文件，如果需要使用，请重命名为config.toml。
-# 博客的数据文件存储在data文件夹下。
+
+# 数据分布
+#
+# ./data: 数据目录
+# ./data/blogs: 博客目录
+# ./data/blog-name/markdown: 博客的 markdown 文件
+# ./data/blog-name/topimg: 博客的顶部图片
+#
+# ./data/user: 管理员目录
+# ./data/user/admin-avatar: 管理员头像
 
 [local]
 # 监听选项

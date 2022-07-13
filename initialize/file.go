@@ -6,16 +6,6 @@ import (
 	fp "path/filepath"
 )
 
-/*
-./data: 数据目录
-./data/blogs: 博客目录
-./data/blog-name/markdown: 博客的 markdown 文件
-./data/blog-name/topimg: 博客的顶部图片
-
-./data/user: 管理员目录
-./data/user/admin-avatar: 管理员头像
-*/
-
 func InitFile() {
 	Local := &global.CONFIG.Local
 	Local.DataDir = "data"
